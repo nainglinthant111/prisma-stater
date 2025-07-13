@@ -13,7 +13,9 @@
         "db:studio": "prisma studio",
         "db:push": "prisma db push",
         "db:pull": "prisma db pull",
-        "db:seed": "ts-node prisma/seed.ts"
+        "db:seed": "ts-node prisma/seed.ts",
+        "fake:generate": "ts-node scripts/generate-fake-data.ts",
+        "fake:users": "ts-node -e \"import('./scripts/generate-fake-data.ts').then(m => console.log(JSON.stringify(m.generateFakeUsers(3), null, 2)))\""
     },
     "keywords": [],
     "author": "",
@@ -33,5 +35,15 @@
         "@types/express": "^4.17.21",
         "@types/node": "^20.11.0",
         "ts-node": "^10.9.2"
+    },
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^17.2.0",
+        "express": "^5.1.0",
+        "nodemon": "^3.1.10",
+        "typescript": "^5.8.3",
+        "@prisma/client": "^6.11.1",
+        "prisma": "^6.11.1",
+        "@faker-js/faker": "^9.4.0"
     }
 }
