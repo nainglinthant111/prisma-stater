@@ -7,3 +7,31 @@ datasource db {
     provider = "mysql"
     url      = env("DATABASE_URL")
 }
+
+enum Role {
+    USER
+    ADMIN
+}
+
+enum Status {
+    ACTIVE
+    INACTIVE
+    FREEZE
+}
+
+model User {
+    id              Int       @id @default(autoincrement())
+    firstName       String?   @db.VarChar(100)
+    lastName        String?   @db.VarChar(100)
+    email           String    @unique @db.VarChar(50)
+    phone           String?   @unique @db.VarChar(12)
+    password        String
+    role            Role      @default(USER)
+    image           String?
+    status          Status    @default(ACTIVE)
+    lastLogin       DateTime?
+    errorLoginCount Int       @default(0) @db.SmallInt
+    refreshToken    String
+    createdAt       DateTime  @default(now())
+    updatedAt       DateTime  @updatedAt
+}

@@ -1,0 +1,23 @@
+##### API
+express
+typescript
+nodemon
+cors
+dotenv
+
+
+
+#### DB 
+prisma
+prisma studio
+
+## create db in prisma
+docker run -d \
+  --name mysql \
+  -e MYSQL_ROOT_PASSWORD=root \
+  -p 3308:3306 \
+  -v mysql_data:/var/lib/mysql \
+  mysql:8
+
+
+mysql -h 127.0.0.1 -P 3308 -u root -p
