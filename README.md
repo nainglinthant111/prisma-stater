@@ -52,7 +52,6 @@ prisma-stater/
 ## 🌐 API Endpoints
 
 -   `GET /` - Welcome message
--   `GET /health` - Health check
 -   `GET /api/v1` - API information
 
 ## 🔧 Development
@@ -108,8 +107,6 @@ JWT_EXPIRES_IN=7d
 -   Environment variable protection
 
 ## 📊 Monitoring
-
-The `/health` endpoint provides:
 
 -   Server status
 -   Uptime information

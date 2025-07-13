@@ -1,0 +1,320 @@
+{
+    "info": {
+        "name": "Prisma Starter API",
+        "description": "Complete API collection for Prisma Starter with Express, TypeScript, and Rate Limiting",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "version": "1.0.0"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:3000",
+            "type": "string"
+        },
+        {
+            "key": "apiVersion",
+            "value": "v1",
+            "type": "string"
+        },
+        {
+            "key": "authToken",
+            "value": "",
+            "type": "string"
+        }
+    ],
+    "auth": {
+        "type": "bearer",
+        "bearer": [
+            {
+                "key": "token",
+                "value": "{{authToken}}",
+                "type": "string"
+            }
+        ]
+    },
+    "item": [
+        {
+            "name": "Health & Status",
+            "item": [
+                {
+                    "name": "Welcome",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/",
+                            "host": ["{{baseUrl}}"],
+                            "path": [""]
+                        },
+                        "description": "Get welcome message and API status"
+                    },
+                    "response": []
+                },
+
+                {
+                    "name": "API Info",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/{{apiVersion}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "{{apiVersion}}"]
+                        },
+                        "description": "Get API information and available endpoints"
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Basic health and status endpoints"
+        },
+        {
+            "name": "Users",
+            "item": [
+                {
+                    "name": "Get All Users",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/{{apiVersion}}/users",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "{{apiVersion}}", "users"]
+                        },
+                        "description": "Get all users (rate limited to 30 requests per 15 minutes)"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get User by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/{{apiVersion}}/users/1",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "{{apiVersion}}", "users", "1"]
+                        },
+                        "description": "Get user by ID (rate limited)"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Create User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"firstName\": \"John\",\n  \"lastName\": \"Doe\",\n  \"email\": \"john.doe@example.com\",\n  \"phone\": \"+1234567890\",\n  \"password\": \"password123\",\n  \"role\": \"USER\",\n  \"status\": \"ACTIVE\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/{{apiVersion}}/users",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "{{apiVersion}}", "users"]
+                        },
+                        "description": "Create a new user (rate limited)"
+                    },
+                    "response": []
+                }
+            ],
+            "description": "User management endpoints with rate limiting"
+        },
+        {
+            "name": "Rate Limiting Tests",
+            "item": [
+                {
+                    "name": "Test Global Rate Limit",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/",
+                            "host": ["{{baseUrl}}"],
+                            "path": [""]
+                        },
+                        "description": "Test global rate limiting (100 requests per 15 minutes in production)"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Test User Endpoint Rate Limit",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/{{apiVersion}}/users",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "{{apiVersion}}", "users"]
+                        },
+                        "description": "Test user endpoint rate limiting (30 requests per 15 minutes)"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Test Speed Limiting",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/{{apiVersion}}/users",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "{{apiVersion}}", "users"]
+                        },
+                        "description": "Test speed limiting (500ms delay after 50 requests)"
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Test rate limiting functionality"
+        },
+        {
+            "name": "Database Operations",
+            "item": [
+                {
+                    "name": "Seed Database",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"action\": \"seed\",\n  \"count\": 10\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/{{apiVersion}}/db/seed",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "{{apiVersion}}", "db", "seed"]
+                        },
+                        "description": "Seed database with fake data (if endpoint exists)"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Generate Fake Users",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"count\": 5\n}"
+                        },
+                        "url": {
+                            "raw": "{{baseUrl}}/api/{{apiVersion}}/db/fake-users",
+                            "host": ["{{baseUrl}}"],
+                            "path": [
+                                "api",
+                                "{{apiVersion}}",
+                                "db",
+                                "fake-users"
+                            ]
+                        },
+                        "description": "Generate fake user data (if endpoint exists)"
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Database seeding and fake data generation"
+        },
+        {
+            "name": "Error Handling",
+            "item": [
+                {
+                    "name": "Test 404 Error",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/nonexistent",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["nonexistent"]
+                        },
+                        "description": "Test 404 error handling"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Test Rate Limit Error",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{baseUrl}}/api/{{apiVersion}}/users",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["api", "{{apiVersion}}", "users"]
+                        },
+                        "description": "Test rate limit error response (make many requests quickly)"
+                    },
+                    "response": []
+                }
+            ],
+            "description": "Test error handling and responses"
+        }
+    ],
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    "// Log request details",
+                    "console.log('Request:', pm.request.method, pm.request.url);",
+                    "",
+                    "// Add timestamp to request",
+                    "pm.request.headers.add({",
+                    "    key: 'X-Request-Timestamp',",
+                    "    value: new Date().toISOString()",
+                    "});"
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [
+                    "// Test response status",
+                    "pm.test('Status code is 200', function () {",
+                    "    pm.response.to.have.status(200);",
+                    "});",
+                    "",
+                    "// Test response time",
+                    "pm.test('Response time is less than 1000ms', function () {",
+                    "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                    "});",
+                    "",
+                    "// Test JSON response",
+                    "pm.test('Response is JSON', function () {",
+                    "    pm.response.to.be.json;",
+                    "});",
+                    "",
+                    "// Log rate limit headers if present",
+                    "const rateLimitRemaining = pm.response.headers.get('RateLimit-Remaining');",
+                    "if (rateLimitRemaining) {",
+                    "    console.log('Rate Limit Remaining:', rateLimitRemaining);",
+                    "}",
+                    "",
+                    "// Test rate limit headers",
+                    "pm.test('Rate limit headers present', function () {",
+                    "    pm.expect(pm.response.headers.get('RateLimit-Limit')).to.exist;",
+                    "    pm.expect(pm.response.headers.get('RateLimit-Remaining')).to.exist;",
+                    "});"
+                ]
+            }
+        }
+    ]
+}

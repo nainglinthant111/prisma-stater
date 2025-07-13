@@ -4,7 +4,8 @@ typescript
 nodemon
 cors
 dotenv
-
+faker
+express-rate-limit
 
 
 #### DB 
